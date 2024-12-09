@@ -4,8 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Cong nghe lap trinh hien dai</Text>
-      <Text>Foodmobile App</Text>
+      <Text>STUPID  ddedsfad!</Text>
       <StatusBar style="auto" />
     </View>
   );
