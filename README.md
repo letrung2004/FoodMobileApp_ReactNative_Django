@@ -49,8 +49,10 @@ Dự án **FoodMobileApp_ReactNatve_Dijango** là một ứng dụng mobile bán
 - Đảm bảo backend chạy trước khi sử dụng frontend để tránh lỗi khi gọi API.
 - Kiểm tra kỹ phiên bản Python, Node.js để tránh lỗi không tương thích.
 
-Bản quyền
+## Bản quyền
 
-Dự án này được phát triển bởi Lê Quốc Trung và Nguyễn Tiến Đạt.
+Dự án này được phát triển bởi  và .
+Dự án này được phát triển bởi **Lê Quốc Trung**** và **Nguyễn Tiến Đạt****.
+
 
 Chúc bạn sử dụng dự án hiệu quả!
