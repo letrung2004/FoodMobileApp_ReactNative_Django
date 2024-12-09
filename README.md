@@ -51,7 +51,6 @@ Dự án **FoodMobileApp_ReactNatve_Dijango** là một ứng dụng mobile bán
 
 ## Bản quyền
 
-Dự án này được phát triển bởi  và .
 Dự án này được phát triển bởi **Lê Quốc Trung** và **Nguyễn Tiến Đạt**.
 
 
