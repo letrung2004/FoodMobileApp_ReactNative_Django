@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.html import mark_safe
-from .models import FoodCategory, Food
+from .models import FoodCategory, Food, Restaurant, User
 
 
 # Register your models here
@@ -19,9 +19,18 @@ class FoodCategoryAdmin(admin.ModelAdmin):
 
 
 class FoodAppAdminSite(admin.AdminSite):
-    site_header = 'FOOD SALE APP'
+    site_header = 'FOOD APP'
 
+class UserAdmin(admin.ModelAdmin):
+    list_display = ['full_name', 'email', 'is_active', 'role']
+    search_fields = ["full_name"]
+
+class RestaurantAdmin(admin.ModelAdmin):
+    list_display = ['name', 'address', 'phone_number', 'star_rate','owner']
+    search_fields = ["name"]
 
 admin_site = FoodAppAdminSite('myfoodapp')
 admin_site.register(Food, FoodAdmin)
 admin_site.register(FoodCategory, FoodCategoryAdmin)
+admin_site.register(User, UserAdmin)
+admin_site.register(Restaurant, RestaurantAdmin)
