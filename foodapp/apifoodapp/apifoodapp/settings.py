@@ -75,8 +75,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'foodappdb',
-        'USER': 'root',  # Tên user MySQL
-        'PASSWORD': '1234',
+        'USER': 'root',
+        'PASSWORD': 'tiendatmySQL964@',
         'HOST': ''
     }
 }
