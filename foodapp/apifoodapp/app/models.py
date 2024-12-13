@@ -2,6 +2,7 @@ from tkinter.constants import CASCADE
 
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from cloudinary.models import CloudinaryField
 
 
 class Role(models.TextChoices):
@@ -11,17 +12,25 @@ class Role(models.TextChoices):
 
 
 class User(AbstractUser):
-    full_name = models.CharField(max_length=255)
     email = models.EmailField(unique=True)
     phone_number = models.CharField(max_length=15, blank=True, null=True)
     is_active = models.BooleanField(default=True)
     role = models.CharField(max_length=20, choices=Role.choices, default=Role.CUSTOMER)
-    avatar = models.ImageField(upload_to='upload/%Y/%m')
+    avatar = CloudinaryField('avatar', null=True)
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
 
-# Create your models here.
+
+class MainCategory(models.Model):
+    name = models.CharField(max_length=100, null=False, unique=True)
+    image = models.ImageField(upload_to='upload/%Y/%m', null=True)
+    active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.name
+
+
 class FoodCategory(models.Model):
     name = models.CharField(max_length=100, null=False, unique=True)
 
@@ -34,7 +43,8 @@ class Restaurant(models.Model):
     phone_number = models.CharField(max_length=10, blank=True, null=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="restaurants")
     star_rate = models.FloatField(null=True)
-    avatar = models.ImageField(upload_to='upload/%Y/%m', null=True)
+    active = models.BooleanField(default=True)
+    image = models.ImageField(upload_to='upload/%Y/%m', null=True)
 
 
     def __str__(self):
