@@ -9,8 +9,10 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-
+import os
 from pathlib import Path
+
+import cloudinary
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,7 +26,7 @@ SECRET_KEY = 'django-insecure-i!_^62v6mlx$x9wdwi0^qsy536y$1-tw+almbtc&noioz5f+=4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.1.213','127.0.0.1', '192.168.0.108']
 
 # Application definition
 
@@ -35,8 +37,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app.apps.AppConfig'
+    'app.apps.AppConfig',
+    'rest_framework',
+    'drf_yasg',
+    'cloudinary'
 ]
+
+cloudinary.config(
+    cloud_name = "dq94qmefz",
+    api_key = "876776184315666",
+    api_secret = "XNP84wQu2yfxt1gjm59KdGMBxJk", # Click 'View API Keys' above to copy your API secret
+    secure=True
+)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -49,6 +61,11 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'apifoodapp.urls'
+
+REST_FRAMEWORK = {
+    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    # 'PAGE_SIZE': 4
+}
 
 TEMPLATES = [
     {
@@ -115,6 +132,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 MEDIA_ROOT = '%s/app/static' % BASE_DIR
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
