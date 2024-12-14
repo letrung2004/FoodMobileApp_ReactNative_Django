@@ -6,13 +6,18 @@ import { Icon } from 'react-native-paper';
 import DashBoard from '../screens/restaurant/DashBoard';
 import CustomerStyles from '../styles/CustomerStyles';
 import React from 'react';
+import RestaurantNavigation from './RestaurantNavigation';
+import HomeScreenTest from '../screens/customer/test';
+
 
 const Stack = createNativeStackNavigator()
 
 const HomeStackNavigator = () => {
     return (
         <Stack.Navigator screenOptions={{ headerShown: false }}>
+            {/* <Stack.Screen name='HomeScreen' component={HomeScreenTest} /> */}
             <Stack.Screen name='HomeScreen' component={HomeScreen} />
+
         </Stack.Navigator>
     )
 }
@@ -57,7 +62,7 @@ const RootNavigator = () => {
     return (
         <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name="MainTabs" component={TabNavigator} />
-            <Stack.Screen  name='DashBoard' component={DashBoard} options={{ headerShown: true}}/>
+            <Stack.Screen  name='MyRestaurant' component={RestaurantNavigation} options={{ headerShown: false}}/>
         </Stack.Navigator>
     )
 }

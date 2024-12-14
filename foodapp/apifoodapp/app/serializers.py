@@ -19,11 +19,19 @@ class UserSerializer(ModelSerializer):
         u = User(**data)
         u.set_password(u.password)
         u.save()
-
         return u
+
+    def update(self, instance, validated_data):
+        password = validated_data.get('password', None)
+        if password:
+            instance.set_password(password)
+        instance.save()
+        return instance
+
+
     class Meta:
         model = User
-        fields = ['id', 'username', 'first_name', 'last_name', 'password', 'avatar']
+        fields = ['id', 'username', 'email','first_name', 'last_name', 'password', 'avatar', 'role']
         extra_kwargs = {
             'password': {
                 'write_only': True

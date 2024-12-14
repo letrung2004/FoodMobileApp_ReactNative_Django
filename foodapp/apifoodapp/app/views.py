@@ -10,11 +10,16 @@ from rest_framework.decorators import action
 from rest_framework.parsers import MultiPartParser
 
 class UserViewSet(viewsets.ViewSet, generics.CreateAPIView,
-                  generics.RetrieveAPIView):
+                  generics.RetrieveAPIView, generics.UpdateAPIView):
     queryset = User.objects.filter(is_active=True)
     serializer_class = UserSerializer
-    parser_classes = [MultiPartParser]
-    permission_classes = [AllowAny]
+    parser_classes = [MultiPartParser, ]
+
+
+    def get_permissions(self):
+        if self.action == 'retrieve':
+            return [permissions.IsAuthenticated()]
+        return [permissions.AllowAny()]
 
 class MainCategoryViewSet(viewsets.ModelViewSet):
     queryset = MainCategory.objects.filter(active=True)
@@ -36,6 +41,7 @@ class MainCategoryViewSet(viewsets.ModelViewSet):
 class RestaurantViewSet(viewsets.ModelViewSet):
     queryset = Restaurant.objects.filter(active=True)
     serializer_class = RestaurantSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
     @action(methods=['post'], detail=True, url_path='inactive-restaurant', url_name='inactive-restaurant')
     # /restaurants/{pk}/inactive-restaurant <- url_path

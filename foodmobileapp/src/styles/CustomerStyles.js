@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#f8f9fa", //
   },
   row: {
     flexDirection: "row",
@@ -76,7 +76,7 @@ export default StyleSheet.create({
   safeArea: {
     // backgroundColor: '#EE4D2D',
   },
-  
+
   menuContainer: {
     marginTop: 10,
   },
@@ -104,19 +104,42 @@ export default StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
   },
-  mainCategory: {
+  mainCategoryImg: {
     width: 60,
     height: 60,
-    backgroundColor: "gray", //#f1f1f1 mau nay ne
+    backgroundColor: "#f1f1f1", //#f1f1f1 mau nay ne
     borderRadius: 30,
     justifyContent: "center",
     alignItems: "center",
-    marginTop:10,
+    marginTop: 10,
+  },
+  itemMainCategories: {
+    
+    backgroundColor: '#f8f9fa', alignItems: 'center', marginRight: 25, height: 100
   },
   scrollMainCategories: {
-    backgroundColor: 'blue',
-    paddingBottom: 0,
+    flex: 1,
+    backgroundColor: '#f8f9fa',
+    paddingVertical: 10,
     height: 1,
-    marginBottom: 0
+    marginBottom: 0,
+    paddingHorizontal: 10
+  },
+  nearRestaurant: {
+    paddingHorizontal: 15, fontSize: 24, fontWeight: "bold",
+    paddingVertical: 3, marginVertical: 2, backgroundColor: "#f8f9fa", //#f8f9fa
+  },
+  listHeader: {
+    height: 55, alignItems: 'center', justifyContent: 'center'
+  },
+  headerLine: {
+    color: '#333', fontSize: 21, fontWeight: 'bold'
+  },
+  flatListNearRestaurant: {
+    flexDirection: "row", padding: 10,
+    borderRadius: 8, backgroundColor: '#fff', marginBottom: 10,
+  },
+  flatListNearRestaurantImage: {
+    width: 100, height: 100, borderRadius: 5
   }
 });
