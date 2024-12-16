@@ -19,7 +19,7 @@ class User(AbstractUser):
     avatar = CloudinaryField('avatar', null=True)
 
     def __str__(self):
-        return f'{self.first_name} {self.last_name}'
+        return f'{self.username}'
 
 
 class MainCategory(models.Model):
@@ -31,11 +31,15 @@ class MainCategory(models.Model):
         return self.name
 
 
-class FoodCategory(models.Model):
+class RestaurantCategory(models.Model):
     name = models.CharField(max_length=100, null=False, unique=True)
+    image = models.ImageField(upload_to='upload/%Y/%m', null=True)
+    active = models.BooleanField(default=True)
+    restaurant = models.ForeignKey('Restaurant', on_delete=models.CASCADE, related_name="main_categories")
 
     def __str__(self):
         return self.name
+
 
 class Restaurant(models.Model):
     name = models.CharField(max_length=100, blank=False, null=False)
@@ -46,17 +50,18 @@ class Restaurant(models.Model):
     active = models.BooleanField(default=True)
     image = models.ImageField(upload_to='upload/%Y/%m', null=True)
 
-
     def __str__(self):
         return self.name
+
 
 class Food(models.Model):
     name = models.CharField(max_length=100, null=False)
     price = models.FloatField(null=False)
     description = models.TextField(null=True, blank=True)
     active = models.BooleanField(default=True)
-    category = models.ForeignKey(FoodCategory, on_delete=models.SET_NULL, null=True)
+    category = models.ForeignKey(RestaurantCategory, on_delete=models.SET_NULL, null=True)
     image = models.ImageField(upload_to='app/%Y/%m', default=None)
+    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, related_name="foods")
 
     def __str__(self):
         return self.name

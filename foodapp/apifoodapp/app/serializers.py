@@ -3,7 +3,8 @@ from rest_framework import serializers
 from rest_framework.fields import SerializerMethodField
 from rest_framework.serializers import ModelSerializer
 
-from .models import Restaurant, User, MainCategory
+from .models import Restaurant, User, MainCategory, RestaurantCategory, Food
+
 
 class BaseSerializer(ModelSerializer):
     image = SerializerMethodField(source='image')
@@ -12,8 +13,6 @@ class BaseSerializer(ModelSerializer):
         request = self.context.get('request')
         if request and obj.image:
             return request.build_absolute_uri('/static/%s' % obj.image)
-
-
 
 
 class UserSerializer(ModelSerializer):
@@ -36,7 +35,7 @@ class UserSerializer(ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id','email', 'phone_number', 'username', 'password', 'avatar', 'role']
+        fields = ['id', 'email', 'phone_number', 'username', 'password', 'avatar', 'role']
         extra_kwargs = {
             'password': {
                 'write_only': True
@@ -44,20 +43,35 @@ class UserSerializer(ModelSerializer):
         }
 
 
-
-
 class RestaurantSerializer(ModelSerializer):
     owner = UserSerializer()
     image = serializers.ImageField(required=False)
+
     class Meta:
         model = Restaurant
         fields = ['id', 'name', 'address', 'phone_number', 'owner', 'star_rate', 'image']
 
 
-
 class MainCategorySerializer(ModelSerializer):
     image = serializers.ImageField(required=False)
+
     class Meta:
         model = MainCategory
         fields = ['id', 'name', 'image']
 
+
+class RestaurantCategorySerializer(BaseSerializer):
+    restaurant = RestaurantSerializer()
+
+    class Meta:
+        model = RestaurantCategory
+        fields = ['id', 'name', 'image', 'restaurant']
+
+
+class FoodSerializers(BaseSerializer):
+    restaurant = RestaurantSerializer()
+    category = RestaurantCategorySerializer()
+
+    class Meta:
+        model = Food
+        fields = ["id", "name", "price", "description", "image", "category", "restaurant", "active"]

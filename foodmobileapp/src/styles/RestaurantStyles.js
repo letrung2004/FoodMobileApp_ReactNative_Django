@@ -22,7 +22,7 @@ export default StyleSheet.create({
     dishList: { paddingHorizontal: 16 },
     dishCard: { flexDirection: 'row', alignItems: 'center', marginBottom: 16, backgroundColor: '#fff', padding: 8, borderRadius: 8 },
     dishImage: { width: 90, height: 90, borderRadius: 10, marginRight: 16, backgroundColor: 'grey' },
-    dishName: { fontSize: 16 },
+    dishName: { fontSize: 17, },
     headerProfile: {
         padding: 20,
         backgroundColor: '#EE4D2D',
@@ -57,6 +57,12 @@ export default StyleSheet.create({
     oderName: {
         fontSize: 16,
         fontWeight: 'bold'
+    },
+    containerCardMenu: {
+        flexDirection: 'row', alignItems: 'center', marginBottom: 20, backgroundColor: '#fff', padding: 10, borderRadius: 8
+    }, cardChoiceName: {
+        fontSize: 20,
+        margin: 10
     }
 
 });
