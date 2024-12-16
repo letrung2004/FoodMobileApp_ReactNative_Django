@@ -28,7 +28,7 @@ const DashBoard = ({ navigation }) => {
                 {/* control */}
                 <View style={RestaurantStyles.menuOptions}>
                     <TouchableOpacity style={RestaurantStyles.menuItem}
-                        onPress={() => navigation.navigate('menu')}>
+                        onPress={() => navigation.navigate('index_menu')}>
                         <Icon source="silverware" size={30} />
                         <Text style={RestaurantStyles.iconText}>Thực đơn</Text>
                     </TouchableOpacity>

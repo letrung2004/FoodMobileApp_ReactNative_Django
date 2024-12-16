@@ -1,20 +1,17 @@
-
-
 from django.http import HttpResponse
 from rest_framework import viewsets, permissions, status, generics
 from rest_framework.response import Response
 
-from .models import Restaurant, MainCategory, User
-from .serializers import RestaurantSerializer, MainCategorySerializer, UserSerializer
+from .models import Restaurant, MainCategory, User, Food
+from .serializers import RestaurantSerializer, MainCategorySerializer, UserSerializer, FoodSerializers, \
+    RestaurantCategorySerializer
 from rest_framework.decorators import action
 from rest_framework.parsers import MultiPartParser
 from .paginators import RestaurantPagination
 
 
-
-
 class UserViewSet(viewsets.ViewSet, generics.CreateAPIView,
-                   generics.UpdateAPIView):
+                  generics.UpdateAPIView):
     queryset = User.objects.filter(is_active=True)
     serializer_class = UserSerializer
     parser_classes = [MultiPartParser, ]
@@ -24,7 +21,7 @@ class UserViewSet(viewsets.ViewSet, generics.CreateAPIView,
     #         return [permissions.IsAuthenticated()]
     #     return [permissions.AllowAny()]
 
-    @action(methods=['get'],url_path='current-user', detail=False   )
+    @action(methods=['get'], url_path='current-user', detail=False)
     def get_current_user(self, request):
         return Response(UserSerializer(request.user).data)
 
@@ -33,17 +30,6 @@ class UserViewSet(viewsets.ViewSet, generics.CreateAPIView,
     #     if self.action == 'retrieve':
     #         return [permissions.IsAuthenticated()]
     #     return [permissions.AllowAny()]
-
-
-
-
-
-
-
-
-
-
-
 
 
 class MainCategoryViewSet(viewsets.ModelViewSet):
@@ -63,24 +49,11 @@ class MainCategoryViewSet(viewsets.ModelViewSet):
                         status=status.HTTP_200_OK)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 class RestaurantViewSet(viewsets.ModelViewSet):
     queryset = Restaurant.objects.filter(active=True)
     serializer_class = RestaurantSerializer
     pagination_class = RestaurantPagination
+
     # permission_classes = [permissions.IsAuthenticated]
 
     @action(methods=['post'], detail=True, url_path='inactive-restaurant', url_name='inactive-restaurant')
@@ -96,12 +69,15 @@ class RestaurantViewSet(viewsets.ModelViewSet):
         return Response(data=RestaurantSerializer(r, context={'request': request}).data,
                         status=status.HTTP_200_OK)
 
-
     # def get_permissions(self):
     #     if self.action == 'list':
     #         return [permissions.AllowAny()]
     #     return [permissions.IsAuthenticated()]
 
+
+class FoodViewSet(viewsets.ModelViewSet):
+    queryset = Food.objects.filter(active=True)
+    serializer_class = FoodSerializers
 
 
 def index(request):
