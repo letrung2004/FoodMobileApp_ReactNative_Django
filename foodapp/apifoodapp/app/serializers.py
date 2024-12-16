@@ -1,3 +1,5 @@
+from cloudinary.models import CloudinaryField
+from rest_framework import serializers
 from rest_framework.fields import SerializerMethodField
 from rest_framework.serializers import ModelSerializer
 
@@ -9,7 +11,9 @@ class BaseSerializer(ModelSerializer):
     def get_image(self, obj):
         request = self.context.get('request')
         if request and obj.image:
-            return request.build_absolute_uri('/static/%s' % obj    .image)
+            return request.build_absolute_uri('/static/%s' % obj.image)
+
+
 
 
 class UserSerializer(ModelSerializer):
@@ -21,17 +25,18 @@ class UserSerializer(ModelSerializer):
         u.save()
         return u
 
-    def update(self, instance, validated_data):
-        password = validated_data.get('password', None)
-        if password:
-            instance.set_password(password)
-        instance.save()
-        return instance
+    # def update(self, user, validated_data):
+    #     password = validated_data.get('password', None)
+    #     if password:
+    #         user.set_password(password)
+    #     user.save()
+    #     return user
 
+    avatar = serializers.ImageField(required=False)
 
     class Meta:
         model = User
-        fields = ['id', 'username', 'email','first_name', 'last_name', 'password', 'avatar', 'role']
+        fields = ['id','email', 'phone_number', 'username', 'password', 'avatar', 'role']
         extra_kwargs = {
             'password': {
                 'write_only': True
@@ -41,15 +46,17 @@ class UserSerializer(ModelSerializer):
 
 
 
-class RestaurantSerializer(BaseSerializer):
+class RestaurantSerializer(ModelSerializer):
     owner = UserSerializer()
+    image = serializers.ImageField(required=False)
     class Meta:
         model = Restaurant
         fields = ['id', 'name', 'address', 'phone_number', 'owner', 'star_rate', 'image']
 
 
 
-class MainCategorySerializer(BaseSerializer):
+class MainCategorySerializer(ModelSerializer):
+    image = serializers.ImageField(required=False)
     class Meta:
         model = MainCategory
         fields = ['id', 'name', 'image']

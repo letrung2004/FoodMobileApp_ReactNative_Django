@@ -6,8 +6,10 @@ import { Image } from 'react-native';
 import APIs, { endpoints } from '../../config/APIs';
 import { useEffect, useState } from 'react';
 import { Dimensions } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 export const HomeHeader = () => {
+    const nav = useNavigation()
     return (
 
         <View style={CustomerStyles.container_home_header}>
@@ -26,11 +28,14 @@ export const HomeHeader = () => {
 
             <View style={CustomerStyles.searchContainer}>
                 <Icon source="magnify" size={20} color="#666" />
-                <TextInput
-                    style={CustomerStyles.searchInput}
-                    placeholder="Balzar De Cafe, Bánh Mì Chim Chay Giảm 50%"
-                    placeholderTextColor="#999"
-                />
+                <TouchableOpacity onPress={() => nav.navigate('SearchEngine')}>
+                    
+                        <Text style={{ fontSize: 14, color: '#999'}}>
+                            Balzar De Cafe, Bánh Mì Chim Chay Giảm 50%
+                        </Text>
+                    
+                </TouchableOpacity>
+
             </View>
         </View>
 
