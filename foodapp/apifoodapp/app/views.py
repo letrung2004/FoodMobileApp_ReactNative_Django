@@ -1,25 +1,50 @@
-from django.shortcuts import render
+
+
 from django.http import HttpResponse
 from rest_framework import viewsets, permissions, status, generics
-from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
 from .models import Restaurant, MainCategory, User
 from .serializers import RestaurantSerializer, MainCategorySerializer, UserSerializer
 from rest_framework.decorators import action
 from rest_framework.parsers import MultiPartParser
+from .paginators import RestaurantPagination
+
+
+
 
 class UserViewSet(viewsets.ViewSet, generics.CreateAPIView,
-                  generics.RetrieveAPIView, generics.UpdateAPIView):
+                   generics.UpdateAPIView):
     queryset = User.objects.filter(is_active=True)
     serializer_class = UserSerializer
     parser_classes = [MultiPartParser, ]
 
+    # def get_permissions(self):
+    #     if self.action in ['get_current_user']:
+    #         return [permissions.IsAuthenticated()]
+    #     return [permissions.AllowAny()]
 
-    def get_permissions(self):
-        if self.action == 'retrieve':
-            return [permissions.IsAuthenticated()]
-        return [permissions.AllowAny()]
+    @action(methods=['get'],url_path='current-user', detail=False   )
+    def get_current_user(self, request):
+        return Response(UserSerializer(request.user).data)
+
+    #
+    # def get_permissions(self):
+    #     if self.action == 'retrieve':
+    #         return [permissions.IsAuthenticated()]
+    #     return [permissions.AllowAny()]
+
+
+
+
+
+
+
+
+
+
+
+
 
 class MainCategoryViewSet(viewsets.ModelViewSet):
     queryset = MainCategory.objects.filter(active=True)
@@ -38,10 +63,25 @@ class MainCategoryViewSet(viewsets.ModelViewSet):
                         status=status.HTTP_200_OK)
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 class RestaurantViewSet(viewsets.ModelViewSet):
     queryset = Restaurant.objects.filter(active=True)
     serializer_class = RestaurantSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    pagination_class = RestaurantPagination
+    # permission_classes = [permissions.IsAuthenticated]
 
     @action(methods=['post'], detail=True, url_path='inactive-restaurant', url_name='inactive-restaurant')
     # /restaurants/{pk}/inactive-restaurant <- url_path

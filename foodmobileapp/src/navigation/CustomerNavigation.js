@@ -8,6 +8,9 @@ import CustomerStyles from '../styles/CustomerStyles';
 import React from 'react';
 import RestaurantNavigation from './RestaurantNavigation';
 import HomeScreenTest from '../screens/customer/test';
+import SearchScreen from '../screens/customer/SearchScreen';
+import FollowScreen from '../screens/customer/FollowScreen';
+import OrderScreen from '../screens/customer/OrderScreen';
 
 
 const Stack = createNativeStackNavigator()
@@ -15,8 +18,8 @@ const Stack = createNativeStackNavigator()
 const HomeStackNavigator = () => {
     return (
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-            {/* <Stack.Screen name='HomeScreen' component={HomeScreenTest} /> */}
             <Stack.Screen name='HomeScreen' component={HomeScreen} />
+            <Stack.Screen name='SearchEngine' t component={SearchScreen} options={{ title: 'Tìm kiếm', headerShown: true}}/>
 
         </Stack.Navigator>
     )
@@ -32,6 +35,24 @@ const AccountStackNavigator = () => {
 }
 
 
+const FollowStackNavigator = () => {
+    return (
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Screen name='FollowScreen' component={FollowScreen} />
+            
+        </Stack.Navigator>
+    )
+}
+
+const OrderStackNavigator = () => {
+    return (
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Screen name='OrderScreen' component={OrderScreen} />
+            
+        </Stack.Navigator>
+    )
+}
+
 const Tab = createBottomTabNavigator()
 
 const TabNavigator = () => {
@@ -45,10 +66,10 @@ const TabNavigator = () => {
             <Tab.Screen name='homeScreen' component={HomeStackNavigator}
                 options={{ title: 'Trang chủ', 
                 tabBarIcon: () => <Icon source="home-outline" size={30} /> }} />
-            <Tab.Screen name='following' component={HomeStackNavigator}
+            <Tab.Screen name='following' component={FollowStackNavigator}
                 options={{ title: 'Yêu thích', 
                 tabBarIcon: () => <Icon source="heart-outline" size={30} /> }} />
-            <Tab.Screen name='orders' component={HomeStackNavigator}
+            <Tab.Screen name='orders' component={OrderStackNavigator}
                 options={{ title: 'Đơn hàng', 
                 tabBarIcon: () => <Icon source="format-list-checkbox" size={30} /> }} />
             <Tab.Screen name='me' component={AccountStackNavigator}

@@ -17,7 +17,7 @@ export default StyleSheet.create({
     alignItems: "center",
   },
   tabBar: {
-    height: 80,
+    height: 100,
     paddingBottom: 20,
     paddingTop: 5,
   },
@@ -64,14 +64,19 @@ export default StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#fff',
     borderRadius: 4,
-    paddingHorizontal: 12,
+    paddingHorizontal: 20,
     height: 40,
+    // marginHorizontal: 10,
+    borderColor: 'gray',
+    borderWidth: 1, borderRadius: 8,
+    margin: 5
   },
   searchInput: {
     flex: 1,
     marginLeft: 8,
     fontSize: 14,
     color: '#000',
+
   },
   safeArea: {
     // backgroundColor: '#EE4D2D',
@@ -114,7 +119,7 @@ export default StyleSheet.create({
     marginTop: 10,
   },
   itemMainCategories: {
-    
+
     backgroundColor: '#f8f9fa', alignItems: 'center', marginRight: 25, height: 100
   },
   scrollMainCategories: {
@@ -141,5 +146,14 @@ export default StyleSheet.create({
   },
   flatListNearRestaurantImage: {
     width: 100, height: 100, borderRadius: 5
-  }
+  },
+  filterButton: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    paddingVertical: 7,
+    alignItems: 'center',
+    borderRadius: 5,
+    alignSelf: 'center', backgroundColor: '#EE4D2D', width: 150
+  },
+
 });
